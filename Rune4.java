@@ -67,11 +67,48 @@ public class Rune4 {
 		int blue = (rgb >>> 0) & 0xFF;
 		return blue;
 	}
-
-	Point2D allPixles(int x, int y) {
-		Point2D pixles = new Point2D.Double(x, y);
-		return pixles;
+	
+	boolean isWhite(int x, int y) {
+		getRGB(x,y);
+		if(getRGB(x,y) == -1) {
+			return true;
+		}		
+		//else
+		return false;
 	}
+	
+	boolean pixelSurrounded(int x, int y) {
+		//What this if statement does is find if colored pixles completely surround a certain pixel (the inital parameter). 
+		//There is probably a better way to do this but I don't know it. 
+		if ( /*
+				 * checkWhite(--x,--y) & checkWhite(x,--y) & checkWhite(++x,--y) &
+				 * checkWhite(--x, y) & checkWhite(++x,y) & checkWhite(--x, ++y)&
+				 * checkWhite(x,++y) & checkWhite(++x,++y)
+				 */
+			
+			!isWhite(x - 1,y -1) &
+			!isWhite(x, y -1)   &
+			!isWhite(x + 1,y -1) &
+			!isWhite(x -1, y)  &
+			!isWhite(x + 1,y)   &
+			!isWhite(x - 1, y + 1)&
+			!isWhite(x,y + 1)   &
+			!isWhite(x + 1,y + 1) 
+				) {
+			return true;
+		}
+		//else
+		return false;
+	}
+	
+
+	/* I don't remember what I was planning with this
+	 * Point2D allPixles(int x, int y) { Point2D pixles = new Point2D.Double(x, y);
+	 * return pixles; }
+	 */
+	
+	
+	
 
 	Void printImage() {
 		JFrame frame2 = new JFrame();
